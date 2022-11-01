@@ -1,6 +1,6 @@
 /*
 Devuelve un listado con todos los pedidos que se han realizado. Los pedidos deben estar ordenados 
-por la fecha de realización, mostrando en primer lugar los pedidos más recientes.
+por la fecha de realizaciÃ³n, mostrando en primer lugar los pedidos mÃ¡s recientes. 
 */
 select * from pedido order by fecha desc;
 
@@ -10,55 +10,55 @@ Devuelve todos los datos de los dos pedidos de mayor valor.
 select top 2 * from pedido order by total desc;
 
 /*
-Devuelve un listado con los identificadores de los clientes que han realizado algún pedido. 
-Tenga en cuenta que no debe mostrar identificadores que estén repetidos.
+Devuelve un listado con los identificadores de los clientes que han realizado algÃºn pedido. 
+Tenga en cuenta que no debe mostrar identificadores que estÃ©n repetidos.
 */
 select distinct id_cliente from pedido;
 
 /*
-Devuelve un listado de todos los pedidos que se realizaron durante el año 2017, cuya cantidad total 
-sea superior a 500€.
+Devuelve un listado de todos los pedidos que se realizaron durante el aÃ±o 2017, cuya cantidad total 
+sea superior a 500â‚¬.
 */
 select * from pedido where year(fecha) = '2017' and total > 500;
 
 /*
-Devuelve un listado con el nombre y los apellidos de los comerciales que tienen una comisión 
+Devuelve un listado con el nombre y los apellidos de los comerciales que tienen una comisiÃ³n 
 entre 0.05 y 0.11.
 */
 select nombre, apellido1, apellido2 from comercial where comision between 0.05 and 0.11;
 
 /*
-Devuelve el valor de la comisión de mayor valor que existe en la tabla comercial.
+Devuelve el valor de la comisiÃ³n de mayor valor que existe en la tabla comercial.
 */
 select max(comision) from comercial;
 
 /*
 Devuelve el identificador, nombre y primer apellido de aquellos clientes cuyo segundo apellido 
-no es NULL. El listado deberá estar ordenado alfabéticamente por apellidos y nombre.
+no es NULL. El listado deberÃ¡ estar ordenado alfabÃ©ticamente por apellidos y nombre.
 */
 select id, nombre, apellido1 from cliente where apellido2 is not null order by 3,2;
 
 /*
-Devuelve un listado de los nombres de los clientes que empiezan por A y terminan por n y también 
-los nombres que empiezan por P. El listado deberá estar ordenado alfabéticamente.
+Devuelve un listado de los nombres de los clientes que empiezan por A y terminan por n y tambiÃ©n 
+los nombres que empiezan por P. El listado deberÃ¡ estar ordenado alfabÃ©ticamente.
 */
 select nombre from cliente where nombre like 'A%n' or nombre like 'P%' order by nombre;
 
 /*
-Devuelve un listado de los nombres de los clientes que no empiezan por A. El listado deberá estar 
-ordenado alfabéticamente.
+Devuelve un listado de los nombres de los clientes que no empiezan por A. El listado deberÃ¡ estar 
+ordenado alfabÃ©ticamente.
 */
 select nombre from cliente where nombre not like 'A%' order by nombre;
 
 /*
 Devuelve un listado con los nombres de los comerciales que terminan por el o o. Tenga en cuenta que 
-se deberán eliminar los nombres repetidos.
+se deberÃ¡n eliminar los nombres repetidos.
 */
 select distinct nombre from comercial where nombre like '%el' or nombre like '%o'; 
 
 /*
 Devuelve un listado con el identificador, nombre y los apellidos de todos los clientes que han realizado 
-algún pedido. El listado debe estar ordenado alfabéticamente y se deben eliminar los elementos repetidos.
+algÃºn pedido. El listado debe estar ordenado alfabÃ©ticamente y se deben eliminar los elementos repetidos.
 */
 select distinct c.id, c.nombre, c.apellido1, c.apellido2 from cliente c inner join
 pedido p on c.id = p.id_cliente order by c.nombre;
@@ -66,14 +66,14 @@ pedido p on c.id = p.id_cliente order by c.nombre;
 /*
 Devuelve un listado que muestre todos los pedidos que ha realizado cada cliente. El resultado debe mostrar 
 todos los datos de los pedidos y del cliente. El listado debe mostrar los datos de los clientes ordenados 
-alfabéticamente.
+alfabÃ©ticamente.
 */
 select * from pedido p inner join cliente c on p.id_cliente = c.id order by c.nombre asc;
 
 /*
 Devuelve un listado que muestre todos los pedidos en los que ha participado un comercial. El resultado 
 debe mostrar todos los datos de los pedidos y de los comerciales. El listado debe mostrar los datos de 
-los comerciales ordenados alfabéticamente.
+los comerciales ordenados alfabÃ©ticamente.
 */
 select * from pedido p inner join comercial c on p.id_comercial = c.id order by c.nombre asc;
 
@@ -85,59 +85,59 @@ select * from pedido p inner join cliente c on p.id_cliente = c.id
 inner join comercial co on p.id_comercial = co.id order by c.nombre, co.nombre;
 
 /*
-Devuelve un listado de todos los clientes que realizaron un pedido durante el año 2017, cuya cantidad 
-esté entre $300 y $1000.
+Devuelve un listado de todos los clientes que realizaron un pedido durante el aÃ±o 2017, cuya cantidad 
+estÃ© entre $300 y $1000.
 */
 select * from cliente c inner join pedido p on c.id = p.id_cliente where
 year(p.fecha) = '2017' and p.total between 300 and 1000;
 
 /*
-Devuelve el nombre y los apellidos de todos los comerciales que ha participado en algún pedido realizado 
-por María Santana Moreno.
+Devuelve el nombre y los apellidos de todos los comerciales que ha participado en algÃºn pedido realizado 
+por MarÃ­a Santana Moreno.
 */
 select distinct c.nombre, c.apellido1, c.apellido2 from pedido p inner join comercial c
 on p.id_comercial = c.id inner join cliente cl on p.id_cliente = cl.id
-where cl.nombre = 'María' and cl.apellido1 = 'Santana' and cl.apellido2 = 'Moreno';
+where cl.nombre = 'MarÃ­a' and cl.apellido1 = 'Santana' and cl.apellido2 = 'Moreno';
 
 /*
-Devuelve el nombre de todos los clientes que han realizado algún pedido con el comercial Daniel Sáez Vega.
+Devuelve el nombre de todos los clientes que han realizado algÃºn pedido con el comercial Daniel SÃ¡ez Vega.
 */
 select distinct cl.nombre from pedido p inner join cliente cl
 on p.id_cliente = cl.id inner join comercial co on p.id_comercial = co.id
-where co.nombre = 'Daniel' and co.apellido1 = 'Sáez' and co.apellido2 = 'Vega';
+where co.nombre = 'Daniel' and co.apellido1 = 'SÃ¡ez' and co.apellido2 = 'Vega';
 
 /*
 Devuelve un listado con todos los clientes junto con los datos de los pedidos que han realizado. 
-Este listado también debe incluir los clientes que no han realizado ningún pedido. El listado debe estar 
-ordenado alfabéticamente por el primer apellido, segundo apellido y nombre de los clientes.
+Este listado tambiÃ©n debe incluir los clientes que no han realizado ningÃºn pedido. El listado debe estar 
+ordenado alfabÃ©ticamente por el primer apellido, segundo apellido y nombre de los clientes.
 */
 select * from cliente cl left join pedido p on  cl.id = p.id_cliente 
 order by cl.apellido1, cl.apellido2, cl.nombre;
 
 /*
 Devuelve un listado con todos los comerciales junto con los datos de los pedidos que han realizado. 
-Este listado también debe incluir los comerciales que no han realizado ningún pedido. 
-El listado debe estar ordenado alfabéticamente por el primer apellido, segundo apellido y nombre de los comerciales.
+Este listado tambiÃ©n debe incluir los comerciales que no han realizado ningÃºn pedido. 
+El listado debe estar ordenado alfabÃ©ticamente por el primer apellido, segundo apellido y nombre de los comerciales.
 */
 select * from comercial co left join pedido p on co.id = p.id_comercial
 order by co.apellido1, co.apellido2, co.nombre;
 
 /*
-Devuelve un listado que solamente muestre los clientes que no han realizado ningún pedido.
+Devuelve un listado que solamente muestre los clientes que no han realizado ningÃºn pedido.
 */
 select cl.id, cl.nombre, cl.apellido1, cl.apellido2, cl.ciudad 
 from pedido p right join cliente cl on p.id_cliente = cl.id where p.id is null;
 
 /*
-Devuelve un listado que solamente muestre los comerciales que no han realizado ningún pedido.
+Devuelve un listado que solamente muestre los comerciales que no han realizado ningÃºn pedido.
 */
 select co.id, co.nombre, co.apellido1, co.apellido2, co.comision
 from pedido p right join comercial co on p.id_comercial = co.id where p.id is null;
 
 /*
-Devuelve un listado con los clientes que no han realizado ningún pedido y de los comerciales que no han participado 
-en ningún pedido. Ordene el listado alfabéticamente por los apellidos y el nombre. En en listado deberá diferenciar 
-de algún modo los clientes y los comerciales.
+Devuelve un listado con los clientes que no han realizado ningÃºn pedido y de los comerciales que no han participado 
+en ningÃºn pedido. Ordene el listado alfabÃ©ticamente por los apellidos y el nombre. En en listado deberÃ¡ diferenciar 
+de algÃºn modo los clientes y los comerciales.
 */
 select * from cliente cl
 full join pedido p on cl.id = p.id_cliente
@@ -155,29 +155,29 @@ Calcula la cantidad media de todos los pedidos que aparecen en la tabla pedido.
 select round(avg(total),2) from pedido;
 
 /*
-Calcula el número total de comerciales distintos que aparecen en la tabla pedido.
+Calcula el nÃºmero total de comerciales distintos que aparecen en la tabla pedido.
 */
 select count(distinct id_comercial) from pedido;
 
 /*
-Calcula el número total de clientes que aparecen en la tabla cliente.
+Calcula el nÃºmero total de clientes que aparecen en la tabla cliente.
 */
 select count(*) from cliente;
 
 /*
-Calcula cuál es la mayor y menor cantidad que aparece en la tabla pedido.
+Calcula cuÃ¡l es la mayor y menor cantidad que aparece en la tabla pedido.
 */
-select max(total) as 'Valor Máximo', min(total) as 'Valor Minimo' from pedido;
+select max(total) as 'Valor MÃ¡ximo', min(total) as 'Valor Minimo' from pedido;
 
 /*
-Calcula cuál es el valor máximo de categoría para cada una de las ciudades que aparece en la tabla cliente.
+Calcula cuÃ¡l es el valor mÃ¡ximo de categorÃ­a para cada una de las ciudades que aparece en la tabla cliente.
 */
 select max(categoria) from cliente;
 
 /*
-Calcula cuál es el máximo valor de los pedidos realizados durante el mismo día para cada uno de los clientes. 
-Es decir, el mismo cliente puede haber realizado varios pedidos de diferentes cantidades el mismo día. 
-Se pide que se calcule cuál es el pedido de máximo valor para cada uno de los días en los que un cliente 
+Calcula cuÃ¡l es el mÃ¡ximo valor de los pedidos realizados durante el mismo dÃ­a para cada uno de los clientes. 
+Es decir, el mismo cliente puede haber realizado varios pedidos de diferentes cantidades el mismo dÃ­a. 
+Se pide que se calcule cuÃ¡l es el pedido de mÃ¡ximo valor para cada uno de los dÃ­as en los que un cliente 
 ha realizado un pedido. Muestra el identificador del cliente, nombre, apellidos, la fecha y el valor de la cantidad.
 */
 select cl.id, cl.nombre, cl.apellido1, cl.apellido2, p.fecha, p.total
@@ -185,8 +185,8 @@ from pedido p inner join cliente cl on p.id_cliente = cl.id
 where p.total = (select max(pe.total) from pedido pe where pe.fecha = p.fecha) order by p.fecha desc;
 
 /*
-Calcula cuál es el máximo valor de los pedidos realizados durante el mismo día para cada uno de los clientes, 
-teniendo en cuenta que sólo queremos mostrar aquellos pedidos que superen la cantidad de $2000.
+Calcula cuÃ¡l es el mÃ¡ximo valor de los pedidos realizados durante el mismo dÃ­a para cada uno de los clientes, 
+teniendo en cuenta que sÃ³lo queremos mostrar aquellos pedidos que superen la cantidad de $2000.
 */
 select cl.id, cl.nombre, cl.apellido1, cl.apellido2, p.fecha, p.total
 from pedido p inner join cliente cl on p.id_cliente = cl.id
@@ -194,7 +194,7 @@ where p.total = (select max(pe.total) from pedido pe where pe.fecha = p.fecha)
 and p.total > 2000 order by p.fecha desc;
 
 /*
-Calcula el máximo valor de los pedidos realizados para cada uno de los comerciales durante la fecha 2016-08-17. 
+Calcula el mÃ¡ximo valor de los pedidos realizados para cada uno de los comerciales durante la fecha 2016-08-17. 
 Muestra el identificador del comercial, nombre, apellidos y total.
 */
 select co.id, co.nombre, co.apellido1, co.apellido2, p.fecha, p.total from pedido p
@@ -202,9 +202,9 @@ inner join comercial co on p.id_comercial = co.id
 where p.total = (select max(pe.total) from pedido pe where pe.fecha = '2016-08-17');
 
 /*
-Devuelve un listado con el identificador de cliente, nombre y apellidos y el número total de pedidos que 
-ha realizado cada uno de clientes. Tenga en cuenta que pueden existir clientes que no han realizado ningún 
-pedido. Estos clientes también deben aparecer en el listado indicando que el número de pedidos realizados es 0.
+Devuelve un listado con el identificador de cliente, nombre y apellidos y el nÃºmero total de pedidos que 
+ha realizado cada uno de clientes. Tenga en cuenta que pueden existir clientes que no han realizado ningÃºn 
+pedido. Estos clientes tambiÃ©n deben aparecer en el listado indicando que el nÃºmero de pedidos realizados es 0.
 */
 select cl.id, cl.nombre, cl.apellido1, cl.apellido2, count(p.id_cliente) as 
 'Cantidad de Pedidos'from cliente cl left join pedido p on cl.id = p.id_cliente
@@ -213,8 +213,8 @@ group by cl.id, cl.nombre, cl.apellido1, cl.apellido2 order by 5 desc;
 select distinct id_cliente from pedido order by id_cliente;
 
 /*
-Devuelve un listado con el identificador de cliente, nombre y apellidos y el número total de pedidos que ha realizado 
-cada uno de clientes durante el año 2017.
+Devuelve un listado con el identificador de cliente, nombre y apellidos y el nÃºmero total de pedidos que ha realizado 
+cada uno de clientes durante el aÃ±o 2017.
 */
 SELECT cl.id, cl.nombre, cl.apellido1, cl.apellido2,  
 COUNT(pe.id_cliente) AS 'Cantidad'
@@ -225,9 +225,9 @@ ON cl.id = pe.id_cliente
 group by cl.id, cl.nombre, cl.apellido1, cl.apellido2 order by 5 desc;
 
 /*
-Devuelve un listado que muestre el identificador de cliente, nombre, primer apellido y el valor de la máxima cantidad del 
-pedido realizado por cada uno de los clientes. El resultado debe mostrar aquellos clientes que no han realizado ningún 
-pedido indicando que la máxima cantidad de sus pedidos realizados es 0. Puede hacer uso de la función ISNULL.
+Devuelve un listado que muestre el identificador de cliente, nombre, primer apellido y el valor de la mÃ¡xima cantidad del 
+pedido realizado por cada uno de los clientes. El resultado debe mostrar aquellos clientes que no han realizado ningÃºn 
+pedido indicando que la mÃ¡xima cantidad de sus pedidos realizados es 0. Puede hacer uso de la funciÃ³n ISNULL.
 */
 select cl.id, cl.nombre, cl.apellido1, cl.apellido2, 
 ISNULL(NULL, 0) as 'Cantidad de Pedidos' from cliente cl 
@@ -235,36 +235,36 @@ left join pedido p on cl.id = p.id_cliente where p.id_cliente is null
 group by cl.id, cl.nombre, cl.apellido1, cl.apellido2 order by 5 desc;
 
 /*
-Devuelve cuál ha sido el pedido de máximo valor que se ha realizado cada año.
+Devuelve cuÃ¡l ha sido el pedido de mÃ¡ximo valor que se ha realizado cada aÃ±o.
 */
-select year(p.fecha) as 'Año', p.total from pedido p
+select year(p.fecha) as 'AÃ±o', p.total from pedido p
 where total = 
 (select max(total) from pedido where year(fecha) = year(p.fecha));
 
 /*
-Devuelve el número total de pedidos que se han realizado cada año.
+Devuelve el nÃºmero total de pedidos que se han realizado cada aÃ±o.
 */
-select year(p.fecha) as 'Año', p.total from pedido p 
+select year(p.fecha) as 'AÃ±o', p.total from pedido p 
 group by year(p.fecha), p.total;
 
-select year(p.fecha) as 'Año', count(p.id_cliente) as 'Total Pedido' 
+select year(p.fecha) as 'AÃ±o', count(p.id_cliente) as 'Total Pedido' 
 from pedido p group by year(p.fecha);
 
 /*
-Devuelve un listado con todos los pedidos que ha realizado Adela Salas Díaz. (Sin utilizar INNER JOIN)
+Devuelve un listado con todos los pedidos que ha realizado Adela Salas DÃ­az. (Sin utilizar INNER JOIN)
 */
 select * from pedido p where id_cliente = (select id from cliente where
-nombre = 'Adela' and apellido1 = 'Salas' and apellido2 = 'Díaz');
+nombre = 'Adela' and apellido1 = 'Salas' and apellido2 = 'DÃ­az');
 
 /*
-Devuelve el número de pedidos en los que ha participado el comercial Daniel Sáez Vega. (Sin utilizar INNER JOIN)
+Devuelve el nÃºmero de pedidos en los que ha participado el comercial Daniel SÃ¡ez Vega. (Sin utilizar INNER JOIN)
 */
 select count(id_comercial) from pedido where id_comercial = 
 (select id from comercial where 
-nombre = 'Daniel' and apellido1 = 'Sáez' and apellido2 = 'Vega');
+nombre = 'Daniel' and apellido1 = 'SÃ¡ez' and apellido2 = 'Vega');
 
 /*
-Devuelve los datos del cliente que realizó el pedido más caro en el año 2019. (Sin utilizar INNER JOIN)
+Devuelve los datos del cliente que realizÃ³ el pedido mÃ¡s caro en el aÃ±o 2019. (Sin utilizar INNER JOIN)
 */
 select * from cliente where id = (select id_cliente from
 pedido where total = (select max(total) from pedido 
@@ -279,47 +279,47 @@ where nombre = 'Pepe' and apellido1 = 'Ruiz' and apellido2 = 'Santana'));
 
 /*
 Devuelve un listado con los datos de los clientes y los pedidos, de todos los clientes que han realizado un 
-pedido durante el año 2017 con un valor mayor o igual al valor medio de los pedidos realizados durante ese mismo año.
+pedido durante el aÃ±o 2017 con un valor mayor o igual al valor medio de los pedidos realizados durante ese mismo aÃ±o.
 */
 select * from pedido p inner join cliente cl 
 on p.id_cliente = cl.id where p.total >= (
 select avg(pe.total) from pedido pe where year(pe.fecha) = '2017');
 
 /*
-Devuelve el pedido más caro que existe en la tabla pedido si hacer uso de MAX, ORDER BY ni TOP.
+Devuelve el pedido mÃ¡s caro que existe en la tabla pedido si hacer uso de MAX, ORDER BY ni TOP.
 */
 select * from pedido where total >= all(select total from pedido);
 
 /*
-Devuelve un listado de los clientes que no han realizado ningún pedido. (Utilizando ANY o ALL).
+Devuelve un listado de los clientes que no han realizado ningÃºn pedido. (Utilizando ANY o ALL).
 */
 select * from pedido where total <= all(select total from pedido);
 
 /*
-Devuelve un listado de los comerciales que no han realizado ningún pedido. (Utilizando ANY o ALL).
+Devuelve un listado de los comerciales que no han realizado ningÃºn pedido. (Utilizando ANY o ALL).
 */
 select * from cliente where id = any(select id_cliente from pedido);
 
 select * from cliente where id != all(select id_cliente from pedido);
 
 /*
-Devuelve un listado de los clientes que no han realizado ningún pedido. (Utilizando IN o NOT IN).
+Devuelve un listado de los clientes que no han realizado ningÃºn pedido. (Utilizando IN o NOT IN).
 */
 select * from cliente where id not in (select id_cliente from pedido);
 
 /*
-Devuelve un listado de los comerciales que no han realizado ningún pedido. (Utilizando IN o NOT IN).
+Devuelve un listado de los comerciales que no han realizado ningÃºn pedido. (Utilizando IN o NOT IN).
 */
 select * from comercial where id not in (select id_comercial from pedido);
 
 /*
-Devuelve un listado de los clientes que no han realizado ningún pedido. (Utilizando EXISTS o NOT EXISTS).
+Devuelve un listado de los clientes que no han realizado ningÃºn pedido. (Utilizando EXISTS o NOT EXISTS).
 */
 select * from cliente c where not exists (select id_cliente from pedido
 where id_cliente = c.id);
 
 /*
-Devuelve un listado de los comerciales que no han realizado ningún pedido. (Utilizando EXISTS o NOT EXISTS).
+Devuelve un listado de los comerciales que no han realizado ningÃºn pedido. (Utilizando EXISTS o NOT EXISTS).
 */
 select * from comercial c where not exists (select id_comercial from pedido
 where id_comercial = c.id);
